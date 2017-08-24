@@ -1,0 +1,70 @@
+[
+  {
+    "op": "core/mass-edit",
+    "description": "Edit Cell [Country] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Country",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": true,
+        "fromError": false,
+        "from": [
+          ""
+        ],
+        "to": "United States",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Remove Characters /[a-zA-Z]+\\d+\\:00\\:\\d+[a-zA-Z]+/ [Calendar Date] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Calendar Date",
+    "expression": "grel:replace (value, /[a-zA-Z]+\\d+\\:00\\:\\d+[a-zA-Z]+/, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Edit Cell [State] (#### Rows)",
+    "engineConfig": null,
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "new york",
+          "New York"
+        ],
+        "to": "New York"
+      }
+    ]
+  },
+  {
+    "op": "core/column-split",
+    "description": "Split After First / / [Camis - Location ID] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Camis - Location ID",
+    "guessCellType": true,
+    "removeOriginalColumn": true,
+    "mode": "separator",
+    "separator": " ",
+    "regex": true,
+    "maxColumns": 2,
+    "separatorSolutionInt": 3
+  }
+]
